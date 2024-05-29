@@ -1,20 +1,16 @@
-import requests
-import os
-import json
-from dotenv import load_dotenv
+# Read CSV 
+import csv
 
-load_dotenv()
+whitelist = []
 
-service_endpoint = "https://openpagerank.com"
+with open('top-1m.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        whitelist.append(row[1])
 
-def get_page_rank(url):
-    try:
-        page_rank = requests.get(f"{service_endpoint}/api/v1.0/getPageRank", 
-                                headers={"API-OPR": os.getenv("OPENPAGERANK_API")}, 
-                                params={"domains[]": url})
-        print(page_rank)
-        return page_rank.json()
-    except Exception as e:
-        print(e)
-        return {"error": "Error al obtener el PageRank"}
+def check_url(url):
+    if url in whitelist:
+        return {"status": "Whitelist"}
+    else:
+        return {"status": "No en whitelist"}
 
