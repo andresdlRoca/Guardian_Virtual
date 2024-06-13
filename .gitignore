@@ -1,6 +1,7 @@
 # models/dev/__pycache__/
 scripts/dev/top-1m.csv
 backend/assets/
+scripts/dev/datasets/
 
 # Logs
 logs
