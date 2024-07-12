@@ -2,6 +2,7 @@
 scripts/dev/top-1m.csv
 backend/assets/
 scripts/dev/datasets/
+backend/venv/
 
 # Logs
 logs
