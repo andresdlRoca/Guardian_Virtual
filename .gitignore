@@ -4,6 +4,7 @@ backend/assets/
 scripts/dev/datasets/
 backend/venv/
 backend/components/__pycache__
+scripts/dev/models/
 
 # Logs
 logs
