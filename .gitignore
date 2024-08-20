@@ -6,6 +6,8 @@ backend/venv/
 backend/components/__pycache__
 scripts/dev/models/
 
+*.pyc
+
 # Logs
 logs
 *.log
