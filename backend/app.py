@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, request
-from components import whitelist, blacklist, popularityrank
+from components import whitelist, blacklist, popularityrank, url_detection
 
 app = Flask("ListAPI")
 api = Api(app)
@@ -40,11 +40,24 @@ class PopularityRankAPI(Resource):
         # Get PageRank for URL
         result = popularityrank.get_page_rank(url)
         return jsonify(result)
+    
+class UrlAnalysisAPI(Resource):
+    def get(self):
+        args = request.args
+        url = args.get("url")
+
+        if url == "" or url is None:
+            return jsonify({"error": "URL not provided"})
+        
+        # Analyze URL
+        result = url_detection.url_analysis(url)
+        return jsonify(result)
 
 
 api.add_resource(WhitelistAPI, '/whitelist')
 api.add_resource(BlacklistAPI, '/blacklist')
 api.add_resource(PopularityRankAPI, '/popularityrank')
+api.add_resource(UrlAnalysisAPI, '/urlanalysis')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
