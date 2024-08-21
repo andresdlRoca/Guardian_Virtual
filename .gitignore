@@ -3,8 +3,9 @@ scripts/dev/top-1m.csv
 backend/assets/
 scripts/dev/datasets/
 backend/venv/
-backend/components/__pycache__
 scripts/dev/models/
+backend/components/__pycache__/
+backend/models/
 
 *.pyc
 
@@ -138,3 +139,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+backend/components/__pycache__/blacklist.cpython-310.pyc
+backend/components/__pycache__/popularityrank.cpython-310.pyc
+backend/components/__pycache__/whitelist.cpython-310.pyc
