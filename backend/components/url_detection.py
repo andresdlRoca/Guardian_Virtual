@@ -67,7 +67,6 @@ def preprocess_url(url):
     df['abnormal'] = df['URL'].apply(abnormal_subdomain_presence)
 
     df = df.drop('URL', axis=1)
-    print(df)
     return df
 
 
@@ -125,7 +124,6 @@ def ngrams(word, n):
         else:
             ngrams = [word[i:i+n] for i in range(0,len(word)-n+1)]
             l_ngrams.extend(ngrams)
-#     print(l_ngrams)
     return l_ngrams
 
 def ngram_feature(domain, d, n):
@@ -138,7 +136,6 @@ def ngram_feature(domain, d, n):
     # sum is normalized
 
     l_ngrams = ngrams(domain, n)
-#     print(l_ngrams)
     count_sum=0
     for ngram in l_ngrams:
         if d[ngram]:
@@ -159,7 +156,6 @@ def average_ngram_feature(l_ngram_feature):
 def relative_entropy(data):
     # Remove TLDs and instances of 'www' so 'www.google.com' would be treated as 'google' and 'images.google.com' would be 'images.google'.
     
-    # print(data)
     data = data.replace('www.', '')
     # Remove http:// and https://.
     data = data.split('://')[-1]

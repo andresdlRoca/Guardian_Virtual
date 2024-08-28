@@ -51,7 +51,6 @@ def preprocess_message(message):
     tv_matrix = df.toarray()
     vocab = tfidf.get_feature_names_out()
     df = pd.DataFrame(np.round(tv_matrix, 2), columns=vocab)
-    print(df)
 
     return df
 

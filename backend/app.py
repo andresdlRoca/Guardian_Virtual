@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, request
-from components import whitelist, blacklist, popularityrank, url_detection, message_detection
+from components import whitelist, blacklist, popularityrank, url_detection, message_detection, content_detection
 from flask_cors import CORS
 import requests
 
@@ -46,29 +46,44 @@ class PopularityRankAPI(Resource):
     
 class URLDetectionAPI(Resource):
     def get(self):
-        args = request.args
-        url = args.get("url")
+        url = request.form.get("url")
         
         if url == "" or url is None:
             return jsonify({"error": "URL not provided"})
         
         # Analyze url
         result = url_detection.url_analysis(url)
-        if result['prediction'] == 0:
+        if result[0] == 0:
             return jsonify({"prediction": "Safe"})
-        elif result['prediction'] == 1:
+        elif result[0] == 1:
             return jsonify({"prediction": "Phishing"})
         
 class MSGDetectionAPI(Resource):
     def get(self):
-        args = request.args
-        message = args.get("message")
+        message = request.form.get("message")
 
         if message == "" or message is None:
             return jsonify({"error": "Message not provided"})
         
         # Analyze message
         result = message_detection.message_analysis(message)
+        if result[0] == 0:
+            return jsonify({"prediction": "Safe"})
+        elif result[0] == 1:
+            return jsonify({"prediction": "Phishing"})
+
+class CONTENTDetectionAPI(Resource):
+    def get(self):
+        html = request.form.get("html")
+        base_domain = request.form.get("base_url")
+
+        if html == "" or html is None:
+            return jsonify({"error": "HTML content not provided"})
+        elif base_domain == "" or base_domain is None:
+            return jsonify({"error": "Base URL not provided"})
+        
+        # Analyze content
+        result = content_detection.content_analysis(html, base_domain)
         if result[0] == 0:
             return jsonify({"prediction": "Safe"})
         elif result[0] == 1:
@@ -99,6 +114,7 @@ api.add_resource(PopularityRankAPI, '/popularityrank')
 api.add_resource(fetch_html, '/fetch_html')
 api.add_resource(URLDetectionAPI, '/url_detection')
 api.add_resource(MSGDetectionAPI, '/msg_detection')
+api.add_resource(CONTENTDetectionAPI, '/content_detection')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
