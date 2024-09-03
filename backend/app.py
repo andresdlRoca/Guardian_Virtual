@@ -42,6 +42,8 @@ class PopularityRankAPI(Resource):
         
         # Get PageRank for URL
         result = popularityrank.get_page_rank(url)
+        result = result['response'][0]
+        # print(result)
         return jsonify(result)
     
 class URLDetectionAPI(Resource):
