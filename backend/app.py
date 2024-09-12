@@ -76,16 +76,13 @@ class MSGDetectionAPI(Resource):
 
 class CONTENTDetectionAPI(Resource):
     def get(self):
-        html = request.form.get("html")
-        base_domain = request.form.get("base_url")
+        url = request.form.get("url")
 
-        if html == "" or html is None:
-            return jsonify({"error": "HTML content not provided"})
-        elif base_domain == "" or base_domain is None:
-            return jsonify({"error": "Base URL not provided"})
+        if url == "" or url is None:
+            return jsonify({"error": "URL not provided"})
         
         # Analyze content
-        result = content_detection.content_analysis(html, base_domain)
+        result = content_detection.content_analysis(url)
         if result[0] == 0:
             return jsonify({"prediction": "Safe"})
         elif result[0] == 1:

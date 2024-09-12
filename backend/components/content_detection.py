@@ -4,13 +4,18 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import tldextract
 import joblib
+import requests
 
 pd.set_option('display.max_columns', None)
 content_model = joblib.load('./models/content_LGBM_model.pkl')
 
-def content_analysis(html, base_url):
+def content_analysis(url):
     try:
-        df_content = preprocess_content(html, base_url)
+        response_html = requests.get(url)
+        response_html.raise_for_status()
+        html = response_html.text
+
+        df_content = preprocess_content(html, url)
         prediction = content_model.predict(df_content)
         return prediction
     except Exception as e:
