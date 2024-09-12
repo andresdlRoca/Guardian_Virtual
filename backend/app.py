@@ -47,7 +47,7 @@ class PopularityRankAPI(Resource):
         return jsonify(result)
     
 class URLDetectionAPI(Resource):
-    def get(self):
+    def post(self):
         url = request.form.get("url")
         
         if url == "" or url is None:
@@ -61,7 +61,7 @@ class URLDetectionAPI(Resource):
             return jsonify({"prediction": "Phishing"})
         
 class MSGDetectionAPI(Resource):
-    def get(self):
+    def post(self):
         message = request.form.get("message")
 
         if message == "" or message is None:
@@ -75,7 +75,7 @@ class MSGDetectionAPI(Resource):
             return jsonify({"prediction": "Phishing"})
 
 class CONTENTDetectionAPI(Resource):
-    def get(self):
+    def post(self):
         url = request.form.get("url")
 
         if url == "" or url is None:
