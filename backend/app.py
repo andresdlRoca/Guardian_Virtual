@@ -52,9 +52,14 @@ class URLDetectionAPI(Resource):
         
         if url == "" or url is None:
             return jsonify({"error": "URL not provided"})
-        
+
         # Analyze url
         result = url_detection.url_analysis(url)
+
+        # Check if result has error dictionary
+        if "error" in result:
+            return jsonify(result)
+
         if result[0] == 0:
             return jsonify({"prediction": "Safe"})
         elif result[0] == 1:
@@ -66,9 +71,14 @@ class MSGDetectionAPI(Resource):
 
         if message == "" or message is None:
             return jsonify({"error": "Message not provided"})
-        
+
         # Analyze message
         result = message_detection.message_analysis(message)
+
+        # Check if result has error dictionary
+        if "error" in result:
+            return jsonify(result)
+
         if result[0] == 0:
             return jsonify({"prediction": "Safe"})
         elif result[0] == 1:
@@ -83,11 +93,15 @@ class CONTENTDetectionAPI(Resource):
         
         # Analyze content
         result = content_detection.content_analysis(url)
+
+        # Check if result has error dictionary
+        if "error" in result:
+            return jsonify(result)
+
         if result[0] == 0:
             return jsonify({"prediction": "Safe"})
         elif result[0] == 1:
             return jsonify({"prediction": "Phishing"})
-
 
 
 class fetch_html(Resource): # For fetching HTML content of a URL
