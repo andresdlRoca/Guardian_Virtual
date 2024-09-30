@@ -142,3 +142,6 @@ dist
 backend/components/__pycache__/blacklist.cpython-310.pyc
 backend/components/__pycache__/popularityrank.cpython-310.pyc
 backend/components/__pycache__/whitelist.cpython-310.pyc
+backend/components/__pycache__/blacklist.cpython-310.pyc
+backend/components/__pycache__/popularityrank.cpython-310.pyc
+backend/components/__pycache__/whitelist.cpython-310.pyc
