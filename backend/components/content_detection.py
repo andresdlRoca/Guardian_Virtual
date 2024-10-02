@@ -7,7 +7,7 @@ import joblib
 import requests
 
 pd.set_option('display.max_columns', None)
-content_model = joblib.load('./models/content_LGBM_model.pkl')
+content_model = joblib.load('./models/content_RF_model.pkl')
 
 def content_analysis(url):
     try:
