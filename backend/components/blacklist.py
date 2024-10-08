@@ -28,6 +28,11 @@ def check_url(url):
             }
         })
         print(threat_matches)
+        if "matches" in threat_matches.json():
+            return {"status": "In Blacklist"}
+        else:
+            return {"status": "Not in blacklist"}
+
         return threat_matches.json()
     except Exception as e:
         print(e)
